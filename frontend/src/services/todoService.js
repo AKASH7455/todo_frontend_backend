@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api/todos';
+const API_BASE_URL = 'https://todofrontendbackend-production.up.railway.app/api/todos';
 
 // Get all todos
 export const getAllTodos = async () => {
