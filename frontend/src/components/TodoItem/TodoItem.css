@@ -1,0 +1,216 @@
+.todo-item {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.todo-item-completed {
+  opacity: 0.7;
+}
+
+.todo-item-completed .todo-title {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+.todo-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.todo-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  flex: 1;
+  word-break: break-word;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.todo-description {
+  margin: 0.5rem 0;
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.todo-meta {
+  margin-top: 0.75rem;
+}
+
+.todo-date {
+  font-size: 0.8rem;
+  color: #a0aec0;
+}
+
+.todo-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.action-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-button {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.edit-button:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.delete-button {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: #feb2b2;
+}
+
+.save-button {
+  background-color: #48bb78;
+  color: #ffffff;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: #38a169;
+}
+
+.cancel-button {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.cancel-button:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+.todo-item-editing {
+  flex-direction: column;
+}
+
+.edit-input,
+.edit-textarea,
+.edit-select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+}
+
+.edit-input:focus,
+.edit-textarea:focus,
+.edit-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.edit-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.todo-item-editing .todo-item-actions {
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .todo-item {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .todo-item-header {
+    flex-wrap: wrap;
+  }
+
+  .todo-item-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .action-button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-item {
+    padding: 0.875rem;
+  }
+
+  .todo-title {
+    font-size: 1rem;
+  }
+
+  .todo-description {
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
