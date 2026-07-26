@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://todofrontendbackend-production.up.railway.app/api/todos';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+  ? 'http://localhost:5000/api/todos' 
+  : 'https://todofrontendbackend-production.up.railway.app/api/todos';
 
 // Get all todos
 export const getAllTodos = async () => {

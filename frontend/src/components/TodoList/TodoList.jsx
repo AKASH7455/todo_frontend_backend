@@ -10,7 +10,7 @@ const TodoList = ({
   isLoading, 
   error 
 }) => {
-  if (isLoading) {
+  if (isLoading && (!todos || todos.length === 0)) {
     return (
       <div className="todo-list todo-list-loading">
         <div className="loading-spinner"></div>
