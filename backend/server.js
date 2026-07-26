@@ -1,5 +1,9 @@
 require("dotenv").config();
 
+if (!globalThis.crypto) {
+  globalThis.crypto = require("node:crypto").webcrypto;
+}
+
 const app = require("./app");
 const connectDatabase = require("./config/database");
 
