@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
   ? 'http://localhost:5000/api/todos' 
-  : 'todofrontendbackend-production.up.railway.app/api/todos';
+  : 'https://todofrontendbackend-production.up.railway.app/api/todos';
 
 // Get all todos
 export const getAllTodos = async () => {
@@ -63,3 +63,4 @@ export const deleteTodo = async (id) => {
     throw new Error(error.response?.data?.message || 'Failed to delete todo');
   }
 };
+

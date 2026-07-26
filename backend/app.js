@@ -20,7 +20,12 @@ app.use(morgan("dev"));
 // CORS
 app.use(
   cors({
-    origin: ["https://todo-frontend-backend-liart.vercel.app", "http://localhost:5173", "http://localhost:3000"],
+    origin: [
+      "https://todo-frontend-backend-liart.vercel.app",
+      "https://todofrontendbackend-production.up.railway.app",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );
