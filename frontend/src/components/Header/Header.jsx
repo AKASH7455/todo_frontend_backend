@@ -16,7 +16,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="header-text">
-          <h1 className="header-title">Todo App</h1>
+          <h1 className="header-title">Todo List</h1>
           <p className="header-subtitle">Manage your tasks efficiently</p>
         </div>
         
