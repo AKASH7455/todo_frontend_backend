@@ -10,7 +10,10 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173"];
+const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://todofrontendbackend-production.up.railway.app")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 const corsOptions = {
   origin(origin, callback) {
