@@ -9,7 +9,8 @@ const getApiBaseUrl = () => {
     return 'http://localhost:5000/api';
   }
 
-  return `${window.location.origin}/api`;
+  // Fallback to Railway backend for production deployments (e.g. on Vercel)
+  return 'https://todofrontendbackend-production.up.railway.app/api';
 };
 
 const api = axios.create({
