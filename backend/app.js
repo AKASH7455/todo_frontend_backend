@@ -47,7 +47,7 @@ const corsOptions = {
 
 // CORS must run first — handles preflight OPTIONS requests
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
 
 // Security
 app.use(helmet());
