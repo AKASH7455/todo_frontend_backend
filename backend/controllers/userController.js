@@ -2,7 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production" || process.env.RAILWAY_ENVIRONMENT != null;
 
 const getRequiredEnv = (name) => {
   const value = process.env[name];

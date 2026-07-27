@@ -10,7 +10,7 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://todofrontendbackend-production.up.railway.app")
+const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://todofrontendbackend-production.up.railway.app,https://todo-frontend-backend-liart.vercel.app")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
