@@ -1,66 +1,31 @@
-import axios from 'axios';
+import api from './api';
 
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-  ? 'http://localhost:5000/api/todos' 
-  : 'https://todofrontendbackend-production.up.railway.app/api/todos';
-
-// Get all todos
 export const getAllTodos = async () => {
-  try {
-    const response = await axios.get(API_BASE_URL);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to fetch todos');
-  }
+  const response = await api.get('/todos');
+  return response.data;
 };
 
-// Get single todo by ID
 export const getTodoById = async (id) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/${id}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to fetch todo');
-  }
+  const response = await api.get(`/todos/${id}`);
+  return response.data;
 };
 
-// Create new todo
 export const createTodo = async (todoData) => {
-  try {
-    const response = await axios.post(API_BASE_URL, todoData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to create todo');
-  }
+  const response = await api.post('/todos', todoData);
+  return response.data;
 };
 
-// Update complete todo
 export const updateTodo = async (id, todoData) => {
-  try {
-    const response = await axios.put(`${API_BASE_URL}/${id}`, todoData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to update todo');
-  }
+  const response = await api.put(`/todos/${id}`, todoData);
+  return response.data;
 };
 
-// Update partial fields (toggle completed, etc.)
 export const patchTodo = async (id, todoData) => {
-  try {
-    const response = await axios.patch(`${API_BASE_URL}/${id}`, todoData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to update todo');
-  }
+  const response = await api.patch(`/todos/${id}`, todoData);
+  return response.data;
 };
 
-// Delete todo
 export const deleteTodo = async (id) => {
-  try {
-    const response = await axios.delete(`${API_BASE_URL}/${id}`);
-    return response.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || 'Failed to delete todo');
-  }
+  const response = await api.delete(`/todos/${id}`);
+  return response.data;
 };
-

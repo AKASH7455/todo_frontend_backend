@@ -7,8 +7,11 @@ const {
   patchTodo,
   deleteTodo,
 } = require("../controllers/todoController");
+const { isAuthenticatedUser } = require("../middleware/auth");
 
 const router = express.Router();
+
+router.use(isAuthenticatedUser);
 
 // Get all todos
 router.get("/", getAllTodos);
@@ -28,4 +31,4 @@ router.patch("/:id", patchTodo);
 // Delete todo
 router.delete("/:id", deleteTodo);
 
-module.exports = router;
+module.exports = router;

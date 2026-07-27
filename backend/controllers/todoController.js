@@ -3,16 +3,13 @@ const Todo = require("../models/todo");
 // Get all todos
 exports.getAllTodos = async (req, res) => {
   try {
-    console.log("Fetching all todos...");
-    const todos = await Todo.find().sort({ createdAt: -1 });
-    console.log("Todos fetched:", todos.length);
+    const todos = await Todo.find({ user: req.user.userId }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
       count: todos.length,
       data: todos,
     });
   } catch (error) {
-    console.error("Error in getAllTodos:", error);
     res.status(500).json({
       success: false,
       message: "Error fetching todos",
@@ -24,12 +21,12 @@ exports.getAllTodos = async (req, res) => {
 // Get single todo
 exports.getTodoById = async (req, res) => {
   try {
-    const todo = await Todo.findById(req.params.id);
-    
+    const todo = await Todo.findOne({ _id: req.params.id, user: req.user.userId });
+
     if (!todo) {
       return res.status(404).json({
         success: false,
-        message: "Todo not found",
+        message: "Todo not found or you don't have permission to access it",
       });
     }
 
@@ -49,8 +46,11 @@ exports.getTodoById = async (req, res) => {
 // Create todo
 exports.createTodo = async (req, res) => {
   try {
-    const todo = await Todo.create(req.body);
-    
+    const todo = await Todo.create({
+      ...req.body,
+      user: req.user.userId,
+    });
+
     res.status(201).json({
       success: true,
       message: "Todo created successfully",
@@ -68,16 +68,18 @@ exports.createTodo = async (req, res) => {
 // Update complete todo
 exports.updateTodo = async (req, res) => {
   try {
-    const todo = await Todo.findByIdAndUpdate(
-      req.params.id,
-      req.body,
+    const { user, ...updates } = req.body;
+
+    const todo = await Todo.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.userId },
+      updates,
       { new: true, runValidators: true }
     );
 
     if (!todo) {
       return res.status(404).json({
         success: false,
-        message: "Todo not found",
+        message: "Todo not found or you don't have permission to update it",
       });
     }
 
@@ -98,16 +100,18 @@ exports.updateTodo = async (req, res) => {
 // Update partial fields
 exports.patchTodo = async (req, res) => {
   try {
-    const todo = await Todo.findByIdAndUpdate(
-      req.params.id,
-      req.body,
+    const { user, ...updates } = req.body;
+
+    const todo = await Todo.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.userId },
+      updates,
       { new: true, runValidators: true }
     );
 
     if (!todo) {
       return res.status(404).json({
         success: false,
-        message: "Todo not found",
+        message: "Todo not found or you don't have permission to update it",
       });
     }
 
@@ -128,12 +132,12 @@ exports.patchTodo = async (req, res) => {
 // Delete todo
 exports.deleteTodo = async (req, res) => {
   try {
-    const todo = await Todo.findByIdAndDelete(req.params.id);
+    const todo = await Todo.findOneAndDelete({ _id: req.params.id, user: req.user.userId });
 
     if (!todo) {
       return res.status(404).json({
         success: false,
-        message: "Todo not found",
+        message: "Todo not found or you don't have permission to delete it",
       });
     }
 
