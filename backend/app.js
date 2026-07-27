@@ -10,28 +10,44 @@ const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://todofrontendbackend-production.up.railway.app,https://todo-frontend-backend-liart.vercel.app")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+// Always include these hardcoded origins (in case FRONTEND_URLS env var on Railway doesn't have them)
+const HARDCODED_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://todo-frontend-backend-liart.vercel.app",
+];
+
+// Merge env var origins with hardcoded ones
+const envOrigins = process.env.FRONTEND_URLS
+  ? process.env.FRONTEND_URLS.split(",").map((o) => o.trim()).filter(Boolean)
+  : [];
+
+const allowedOrigins = [...new Set([...HARDCODED_ORIGINS, ...envOrigins])];
+
+console.log("Allowed CORS origins:", allowedOrigins);
 
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (mobile apps, curl, Postman, server-to-server)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
+    console.warn("CORS blocked origin:", origin);
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 204,
+  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+  exposedHeaders: ["Set-Cookie"],
+  optionsSuccessStatus: 200,
 };
 
-// CORS must run first so preflight and error responses include CORS headers.
+// CORS must run first — handles preflight OPTIONS requests
 app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Security
 app.use(helmet());
